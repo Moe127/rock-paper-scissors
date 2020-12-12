@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rock paper Scissors</title>
+</head>
+<body>
+    <script>
+        // play a round of rock paper scissors
+        function playRound(playerSelecton,computerSelection) {
+            let playerSelectonInNumber;
+            if (playerSelecton == 'paper' && computerSelection == 'rock')
+                return "you win " + playerSelecton + " beat " + computerSelection;
+            else if (playerSelecton == 'rock' && computerSelection == 'scissors')
+                return "you win " + playerSelecton + " beat " + computerSelection;
+            else if (playerSelecton == 'scissors' && computerSelection == 'paper')
+                return "you win " + playerSelecton + " beat " + computerSelection;
+
+            else if (computerSelection == 'paper' && playerSelecton == 'rock')
+                return "you lose " + computerSelection + " beat " + playerSelecton;
+            else if (computerSelection == 'scissors' && playerSelecton == 'paper')
+                return "you lose " + computerSelection + " beat " + playerSelecton;
+            else if (computerSelection == 'rock' && playerSelecton == 'scissors')
+                return "you lose " + computerSelection + " beat " + playerSelecton;
+            else
+                return "Draw no one win";
+
+        }
+
+        // return a random answer contain (rock or paper or scissors);
+        function computerPlay() {
+            let arr = ['rock','paper','scissors'];
+            return arr[Math.floor(Math.random()*3)];
+        }
+        // play a rounds of rock paper scissors
+        function game() {
+            let playerScore = 0;
+            let computerScore = 0;
+            // keep the game untill someone score five 
+            while(true) {
+                // check if the player or the computer score 5 to break from the loop
+                if(playerScore == 5 || computerScore == 5)
+                    break;
+                // ask the user for input then make it lower case
+                const playerSelecton = prompt("Enter on of these (rock,paper,scissors)").toLocaleLowerCase();
+                // get random choice from the computer
+                const computerSelection = computerPlay();
+                // determine who win from the first two words
+                let whoWin = playRound(playerSelecton,computerSelection).slice(0,8);
+                if(whoWin == "you win ")
+                    playerScore++;
+                else if (whoWin == "you lose")
+                    computerScore++;
+                console.log(playRound(playerSelecton,computerSelection));
+                console.log("playerScore: "+playerScore+" computerScore: "+ computerScore);
+            }
+
+             if(playerScore > computerScore){
+                 console.log("Congratualtions you win the whole game your score is " + playerScore);
+                 console.log("computerScore: " + computerScore);
+             }
+             else if(playerScore < computerScore){
+                console.log("you lose the whole game your score is " + playerScore);
+                 console.log("computerScore: " + computerScore);
+             }
+        }
+
+        game();
+
+    </script>
+</body>
+</html>
