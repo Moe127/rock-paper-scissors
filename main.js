@@ -2,21 +2,47 @@ var computerScore = 0;
 var userScore = 0;
 var computerChoice;
 var userChoice;
+var userBtns = document.querySelectorAll(".btn-user");
+var computerBtns = document.querySelectorAll(".btn-computer");
 
+function resetRound() {
+  userBtns.forEach((userBtn) => {
+    userBtn.classList.remove("disabled");
+  });
+  computerBtns.forEach((computerBtn) => {
+    computerBtn.classList.add("disabled");
+  });
+}
 // getting the user choice and verify that its valid
 function getUserChoice() {
   var choice;
-  do {
-    choice = prompt("Please enter on of this option (rock,paper,scissors)");
-    choice = choice.toLowerCase();
-  } while (choice != "rock" && choice != "paper" && choice != "scissors");
-  return choice;
+  userBtns.forEach((userBtn) =>
+    userBtn.addEventListener("click", () => {
+      choice = userBtn.attributes["data-player-choice"].value;
+      userBtns.forEach((userBtn) => {
+        if (choice != userBtn.attributes["data-player-choice"].value) {
+          userBtn.classList.add("disabled");
+        }
+      });
+      getComputerChoice(choice);
+    })
+  );
 }
 
 // Computer choice
-function getComputerChoice() {
+function getComputerChoice(userChoice) {
+  console.log(userChoice);
   var choices = ["rock", "paper", "scissors"];
-  return choices[Math.floor(Math.random() * choices.length)];
+  computerChoice = choices[Math.floor(Math.random() * choices.length)];
+  console.log(computerChoice);
+  computerBtns.forEach((computerBtn) => {
+    if (
+      computerChoice == computerBtn.attributes["data-computer-choice"].value
+    ) {
+      computerBtn.classList.remove("disabled");
+      return;
+    }
+  });
 }
 
 function game() {
@@ -77,4 +103,6 @@ function playAgain(play) {
   }
 }
 
-game();
+// game();
+
+getUserChoice();

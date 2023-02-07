@@ -4,9 +4,121 @@
     <meta charset="UTF-8" />
     <meta http-equiv="X-UA-Compatible" content="IE=edge" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.2.3/css/bootstrap.min.css"
+      integrity="sha512-SbiR/eusphKoMVVXysTKG/7VseWii+Y3FdHrt0EpKgpToZeemhqHeZeLWLhJutz/2ut2Vw1uQEj2MbRF+TVBUA=="
+      crossorigin="anonymous"
+      referrerpolicy="no-referrer"
+    />
     <title>Rock Paper Scissors</title>
   </head>
   <body>
+    <div class="container text-center mt-5">
+      <p class="h3">
+        Having a dispute with someone settle it with a rock paper scissors game
+        <img src="https://img.icons8.com/ios/50/null/wink--v1.png" />
+      </p>
+      <p class="h4">
+        Rules simple first to reach five win
+        <img
+          src="https://img.icons8.com/emoji/48/000000/grinning-face-with-big-eyes--v2.png"
+        />
+      </p>
+      <h1 class="d-none">Final Result: <span class="result"></span></h1>
+      <button class="start btn btn-info mt-3">Start playing</button>
+      <div class="row justify-content-center align-items-center p-3 mt-5 gx-2">
+        <div class="col-md-6 p-5">
+          <h2>computer Score : <span class="computer-score"></span></h2>
+          <div class="row mt-4">
+            <div class="col-md-4">
+              <div class="rock">
+                <button
+                  data-computer-choice="rock"
+                  class="btn bg-dark text-white btn-rock btn-computer disabled"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/rock.png"
+                  />
+                  <p>Rock</p>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="paper">
+                <button
+                  data-computer-choice="paper"
+                  class="btn bg-dark text-white btn-paper btn-computer disabled"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/paper.png"
+                  />
+                  <p>Paper</p>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="scissors">
+                <button
+                  data-computer-choice="scissors"
+                  class="btn bg-dark text-white btn-scissors btn-computer disabled"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/barber-scissors.png"
+                  />
+                  <p>scissors</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-md-6 p-5">
+          <h2>player Score : <span class="player-score"></span></h2>
+          <div class="row mt-4">
+            <div class="col-md-4">
+              <div class="rock">
+                <button
+                  data-player-choice="rock"
+                  class="btn bg-dark text-white btn-rock btn-user"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/rock.png"
+                  />
+                  <p>Rock</p>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="paper">
+                <button
+                  data-player-choice="paper"
+                  class="btn bg-dark text-white btn-paper btn-user"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/paper.png"
+                  />
+                  <p>Paper</p>
+                </button>
+              </div>
+            </div>
+            <div class="col-md-4">
+              <div class="scissors">
+                <button
+                  data-player-choice="scissors"
+                  class="btn bg-dark text-white btn-scissors btn-user"
+                >
+                  <img
+                    src="https://img.icons8.com/plasticine/100/null/barber-scissors.png"
+                  />
+                  <p>scissors</p>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
     <script src="main.js"></script>
   </body>
 </html>
