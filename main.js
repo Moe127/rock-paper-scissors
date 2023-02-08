@@ -1,9 +1,32 @@
-var computerScore = 0;
-var userScore = 0;
+var computerScore = document.querySelector(".computer-score");
+var userScore = document.querySelector(".player-score");
+var computerSc = 0;
+var userSc = 0;
 var computerChoice;
 var userChoice;
 var userBtns = document.querySelectorAll(".btn-user");
 var computerBtns = document.querySelectorAll(".btn-computer");
+var start = document.querySelector(".start");
+var currentResult = document.querySelector(".current-result");
+var finalResult = document.querySelector(".final-result");
+
+function game() {}
+
+function startPlay() {
+  computerScore.innerText = 0;
+  userScore.innerHTML = 0;
+  finalResult.classList.add("d-none");
+  computerSc = 0;
+  userSc = 0;
+  userBtns.forEach((userBtn) => {
+    userBtn.classList.remove("disabled");
+  });
+}
+function endGame() {
+  userBtns.forEach((userBtn) => {
+    userBtn.classList.add("disabled");
+  });
+}
 
 function resetRound() {
   userBtns.forEach((userBtn) => {
@@ -17,24 +40,26 @@ function resetRound() {
 function getUserChoice() {
   var choice;
   userBtns.forEach((userBtn) =>
-    userBtn.addEventListener("click", () => {
+    userBtn.addEventListener("click", (e) => {
       choice = userBtn.attributes["data-player-choice"].value;
       userBtns.forEach((userBtn) => {
         if (choice != userBtn.attributes["data-player-choice"].value) {
           userBtn.classList.add("disabled");
         }
       });
+      if (userSc === 5 || computerSc === 5) {
+        endGame();
+        return;
+      }
       getComputerChoice(choice);
+      setTimeout(resetRound, 2000);
     })
   );
 }
-
 // Computer choice
 function getComputerChoice(userChoice) {
-  console.log(userChoice);
   var choices = ["rock", "paper", "scissors"];
   computerChoice = choices[Math.floor(Math.random() * choices.length)];
-  console.log(computerChoice);
   computerBtns.forEach((computerBtn) => {
     if (
       computerChoice == computerBtn.attributes["data-computer-choice"].value
@@ -43,66 +68,57 @@ function getComputerChoice(userChoice) {
       return;
     }
   });
+  scoreTracker(userChoice, computerChoice);
+  return;
 }
 
-function game() {
-  while (userScore < 5 && computerScore < 5) {
-    userChoice = getUserChoice();
-    computerChoice = getComputerChoice();
-    if (userChoice == computerChoice) {
-      console.log(`computer choose ${computerChoice}, Draw`);
-      console.log(
-        `Score: computer score : ${computerScore}, your score : ${userScore}`
-      );
-    } else if (userChoice == "rock" && computerChoice == "paper") {
-      console.log(`computer choose ${computerChoice}, computer win`);
-      console.log(
-        `Score: computer score : ${++computerScore}, your score : ${userScore}`
-      );
-    } else if (userChoice == "rock" && computerChoice == "scissors") {
-      console.log(`computer choose ${computerChoice}, you win`);
-      console.log(
-        `Score: computer score : ${computerScore}, your score : ${++userScore}`
-      );
-    } else if (userChoice == "paper" && computerChoice == "scissors") {
-      console.log(`computer choose ${computerChoice}, computer win`);
-      console.log(
-        `Score: computer score : ${++computerScore}, your score : ${userScore}`
-      );
-    } else if (userChoice == "scissors" && computerChoice == "rock") {
-      console.log(`computer choose ${computerChoice}, computer win`);
-      console.log(
-        `Score: computer score : ${++computerScore}, your score : ${userScore}`
-      );
-    }
+function scoreTracker(userChoice, computerChoice) {
+  if (userChoice == computerChoice) {
+    currentResult.innerHTML = "it's a tie";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+  } else if (userChoice == "rock" && computerChoice == "paper") {
+    currentResult.innerHTML = "Computer Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    computerScore.innerHTML = ++computerSc;
+  } else if (userChoice == "rock" && computerChoice == "scissors") {
+    currentResult.innerHTML = "Player Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    userScore.innerHTML = ++userSc;
+  } else if (userChoice == "paper" && computerChoice == "scissors") {
+    currentResult.innerHTML = "Computer Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    computerScore.innerHTML = ++computerSc;
+  } else if (userChoice == "scissors" && computerChoice == "rock") {
+    currentResult.innerHTML = "Computer Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    computerScore.innerHTML = ++computerSc;
+  } else if (userChoice == "scissors" && computerChoice == "paper") {
+    currentResult.innerHTML = "Player Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    userScore.innerHTML = ++userSc;
+  } else if (userChoice == "paper" && computerChoice == "rock") {
+    currentResult.innerHTML = "Player Win";
+    setTimeout(() => currentResult.classList.add("d-none"), 2000);
+    userScore.innerHTML = ++userSc;
   }
-  if (userScore > computerScore) {
-    console.log(
-      `Result: computer :${computerScore}   you: ${userScore} you win :)`
-    );
-  } else if (userScore < computerScore) {
-    console.log(
-      `Result: computer :${computerScore}   you: ${userScore} computer win ):`
-    );
-  } else {
-    console.log(
-      `Result: computer :${computerScore}   you: ${userScore} its a Draw No one Win :) ):`
-    );
+
+  if (userSc == 5 && computerSc < 5) {
+    finalResult.classList.remove("d-none");
+    finalResult.innerHTML = `THE ONE REACHED FIVE FIRST IS YOU`;
+    return;
+  } else if (computerSc == 5 && userSc < 5) {
+    finalResult.classList.remove("d-none");
+    finalResult.innerHTML = `THE ONE REACHED FIVE FIRST IS the computer`;
+    return;
   }
-  playAgain();
+
+  setTimeout(() => (currentResult.innerHTML = ""), 2000);
+  currentResult.classList.remove("d-none");
 }
 
-function playAgain(play) {
-  var play = prompt("want to play again type (yes) (NO)");
-  if (play.toLowerCase() == "yes") {
-    userScore = 0;
-    computerScore = 0;
-    game();
-  } else {
-    return 0;
-  }
-}
-
-// game();
+start.addEventListener("click", () => {
+  startPlay();
+});
 
 getUserChoice();
+endGame();
